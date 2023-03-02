@@ -25,6 +25,7 @@ public class TelemetryDiagnosticControls
             diagnosticInfo = "";
 
             telemetryClient.disconnect();
+
     
             int retryLeft = 3;
             while (telemetryClient.getOnlineStatus() == false && retryLeft > 0)
@@ -32,11 +33,13 @@ public class TelemetryDiagnosticControls
                 telemetryClient.connect(DiagnosticChannelConnectionString);
                 retryLeft -= 1;
             }
-             
+
             if(telemetryClient.getOnlineStatus() == false)
             {
                 throw new Exception("Unable to connect.");
             }
+             
+
     
             telemetryClient.send(TelemetryClient.DIAGNOSTIC_MESSAGE);
             diagnosticInfo = telemetryClient.receive();
