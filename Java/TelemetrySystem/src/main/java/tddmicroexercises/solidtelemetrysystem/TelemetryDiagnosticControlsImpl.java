@@ -7,16 +7,16 @@ public class TelemetryDiagnosticControlsImpl implements ITelemetryDiagnosticCont
 
     private final String DiagnosticChannelConnectionString = "*111#";
 
-    private final TelemetryClientImpl telemetryClient;
+    private final ITelemetryClientConnection telemetryClient;
 
-    private final  TelemetryClientMessageSenderImpl telemetryClientMessageSender;
+    private final  ITelemetryClientTransaction telemetryClientMessageSender;
     private String diagnosticInfo = "";
 
-    public TelemetryDiagnosticControlsImpl()
-        {
-            telemetryClient = new TelemetryClientImpl();
-            telemetryClientMessageSender = new TelemetryClientMessageSenderImpl();
-        }
+    public TelemetryDiagnosticControlsImpl(ITelemetryClientConnection telemetryClient, ITelemetryClientTransaction telemetryClientMessageSender) {
+        this.telemetryClient = telemetryClient;
+        this.telemetryClientMessageSender = telemetryClientMessageSender;
+    }
+
 
     //Getters & Setters
 
@@ -28,7 +28,8 @@ public class TelemetryDiagnosticControlsImpl implements ITelemetryDiagnosticCont
         this.diagnosticInfo = diagnosticInfo;
     }
 
-    @Override
+
+
     public void checkTransmission(Integer retryLimit)throws Exception {
 
         diagnosticInfo = "";

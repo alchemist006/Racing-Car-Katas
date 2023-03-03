@@ -10,7 +10,7 @@ public class TelemetryClientMessageSenderImpl implements ITelemetryClientTransac
 
     private final Random connectionEventsSimulator = new Random(42);
 
-    @Override
+
     public void send(String message) {
         if (message == null || "".equals(message))
         {
@@ -41,7 +41,7 @@ public class TelemetryClientMessageSenderImpl implements ITelemetryClientTransac
 
     }
 
-    @Override
+
     public String receive() {
         String message;
 

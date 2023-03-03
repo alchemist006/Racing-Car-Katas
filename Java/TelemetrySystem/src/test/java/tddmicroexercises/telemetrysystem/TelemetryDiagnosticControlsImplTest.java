@@ -3,13 +3,14 @@ package tddmicroexercises.telemetrysystem;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tddmicroexercises.solidtelemetrysystem.TelemetryDiagnosticControlsImpl;
-import tddmicroexercises.solidtelemetrysystem.TelemetryClientImpl;
+import tddmicroexercises.solidtelemetrysystem.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TelemetryDiagnosticControlsImplTest
 {
+
 
     final String info= "LAST TX rate................ 100 MBPS\r\n"
             + "HIGHEST TX rate............. 100 MBPS\r\n"
@@ -28,7 +29,10 @@ public class TelemetryDiagnosticControlsImplTest
 	@Test
     public void CheckTransmission_should_send_a_diagnostic_message_and_receive_a_status_message_response()
     {
-        TelemetryDiagnosticControlsImpl telemetryDiagnosticControls = new TelemetryDiagnosticControlsImpl();
+         final ITelemetryClientConnection telemetryClient = new TelemetryClientImpl();
+
+         final ITelemetryClientTransaction telemetryClientMessageSender = new TelemetryClientMessageSenderImpl();
+        TelemetryDiagnosticControlsImpl telemetryDiagnosticControls = new TelemetryDiagnosticControlsImpl(telemetryClient, telemetryClientMessageSender);
         try{
             telemetryDiagnosticControls.checkTransmission(3);
             System.out.println(telemetryDiagnosticControls.getDiagnosticInfo());
@@ -45,9 +49,12 @@ public class TelemetryDiagnosticControlsImplTest
     @Test
     public void CheckTransmission_should_throw_exception() throws Exception{
         TelemetryClientImpl telemetryClient = new TelemetryClientImpl();
+        final ITelemetryClientConnection telemetryClientImpl = new TelemetryClientImpl();
+
+        final ITelemetryClientTransaction telemetryClientMessageSender = new TelemetryClientMessageSenderImpl();
 
         String errorMessage ="Unable to connect.";
-        TelemetryDiagnosticControlsImpl telemetryDiagnosticControls = new TelemetryDiagnosticControlsImpl();
+        TelemetryDiagnosticControlsImpl telemetryDiagnosticControls = new TelemetryDiagnosticControlsImpl(telemetryClientImpl, telemetryClientMessageSender);
         try{
             telemetryClient.disconnect();
             telemetryDiagnosticControls.checkTransmission(0);

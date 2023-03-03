@@ -11,7 +11,7 @@ public class TelemetryClientImpl implements ITelemetryClientConnection
 
     private final Random connectionEventsSimulator = new Random(42);
 
-    @Override
+
     public void connect(String telemetryServerConnectionString) {
 
         if (telemetryServerConnectionString == null || "".equals(telemetryServerConnectionString))
@@ -26,13 +26,13 @@ public class TelemetryClientImpl implements ITelemetryClientConnection
 
     }
 
-    @Override
+
     public void disconnect() {
         onlineStatus= false;
     }
 
 
-    @Override
+
     public boolean getOnlineStatus() {
         return onlineStatus;
     }
